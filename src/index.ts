@@ -11,7 +11,6 @@ const connectionDB= async()=>{
     try {
         mongoose.connect(DB_CONNECTION);
         console.log('MongoDB connected');
-        
     } catch (err) {
         console.error(err.message);
         process.exit(1);

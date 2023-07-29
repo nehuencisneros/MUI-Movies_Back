@@ -1,20 +1,20 @@
 import mongoose, { Schema, Document }from "mongoose";
 
-export interface Movie extends Document {
+interface Movie extends Document {
     id: number;
     title: string;
     overview: string;
-    // adult: boolean;
-    // lenguaje: string;
-    // image: string;
-    // poster: string;
-    // rating: number;
-    // release_date: string;
+    adult: boolean;
+    lenguaje: string;
+    image: string;
+    poster: string;
+    rating: number;
+    release_date: string;
 }
 
-const MovieSchema: Schema = new mongoose.Schema({
+const schema = new Schema<Movie>({
     id:{
-        type: String, 
+        type: Number, 
         required: true 
     },
     title:{
@@ -24,8 +24,32 @@ const MovieSchema: Schema = new mongoose.Schema({
     overview: {
         type: String, 
         required: true 
+    },
+    adult:{
+        type: Boolean,
+
+    },
+    lenguaje:{
+        type: String, 
+
+    },
+    image:{
+        type: String, 
+
+    },
+    poster:{
+        type: String, 
+
+    },
+    rating:{
+        type: Number,
+
+    },
+    release_date:{
+        type: String, 
+
     }
 });
 
-export default mongoose.model<Movie>('Movie', MovieSchema);
+export default mongoose.model<Movie>('Movie', schema);
 

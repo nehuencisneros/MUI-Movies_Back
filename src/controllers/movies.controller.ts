@@ -1,18 +1,49 @@
 import 'dotenv/config';
-import movieModel, { Movie } from '../models/movie.model';
+import Movie from '../models/movie.model';
+import axios from 'axios';
 
-const axios = require('axios');
-const { API_KEY } = process.env
+const  API_KEY  = process.env.API_KEY;
 
 export const getAllMovies = async () => {
-    const response = await axios.get('https://api.themoviedb.org/3/movie/13?api_key=' + API_KEY )
+
+    for(let i = 1; i <= 10; i++){
+        let options = {
+            method: 'GET',
+            url: 'https://api.themoviedb.org/3/movie/popular?page=' + i,
+            headers: {
+                accept: 'application/json',
+                Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhMGIwYzEyYmQ2YWM0ODRlNmNmYWNhM2Q2YjUyYWQ0MCIsInN1YiI6IjY0YzI5NDZkMmYxYmUwMDBjYTI3N2EwZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.6jO__kDB0393fGoG_J1UwqwK14MxLZJOuIUDWFsORqM'
+            }
+        };
+
+        const response = await axios.request(options)
+                                .then(function (res:any){return res})
+                                .catch(function (err:any) {return (err)});
+        const {data} = response
+
+        await data?.results.map( (e:any)=> {
+            Movie.create({    
+                id : e.id,
+                title: e.title,
+                overview: e.overview ? e.overview : "no overview",
+                adult: e.adult,
+                lenguaje: e.original_language,
+                image: e.backdrop_path,
+                poster: e.poster_path,
+                rating: e.vote_average,
+                release_date: e.release_date,
+            }) 
+        })
+    }   
+
+    return "succesfuly created";
+
+}
+
+export const getAllPerson = async () => {
+    const response = await axios.get('https://api.themoviedb.org/3/movie/popular?api_key='+ API_KEY )
 
     const  { data } = response
 
-    const result = await movieModel.create({    
-        id : data.id,
-        title: data.title,
-        overview: data. overview
-    })
-    return result;
+    return data;
 }
