@@ -2,7 +2,8 @@ import 'dotenv/config';
 import Movie from '../models/movie.model';
 import axios from 'axios';
 
-const  API_KEY  = process.env.API_KEY;
+const API_KEY = process.env.API_KEY;
+const AUTHORIZATION = process.env.AUTHORIZATION;
 
 export const getAllMovies = async () => {
 
@@ -12,7 +13,7 @@ export const getAllMovies = async () => {
             url: 'https://api.themoviedb.org/3/movie/popular?page=' + i,
             headers: {
                 accept: 'application/json',
-                Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhMGIwYzEyYmQ2YWM0ODRlNmNmYWNhM2Q2YjUyYWQ0MCIsInN1YiI6IjY0YzI5NDZkMmYxYmUwMDBjYTI3N2EwZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.6jO__kDB0393fGoG_J1UwqwK14MxLZJOuIUDWFsORqM'
+                Authorization: AUTHORIZATION
             }
         };
 

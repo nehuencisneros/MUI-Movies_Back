@@ -1,10 +1,10 @@
-import express from 'express';
+import { Router } from 'express';
 import { getMovies, getPerson } from '../handlers/movies.handler';
 
-const router = express.Router()
+const moviesRouter: Router = Router()
 
-    router.get("/popularMovies", getMovies)
+    moviesRouter.get("/popular", getMovies)
 
-    router.get("/movie/person", getPerson)
+    moviesRouter.get("/movie/person", getPerson)
 
-export default router;
+export default moviesRouter;

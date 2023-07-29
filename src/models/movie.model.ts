@@ -10,6 +10,7 @@ interface Movie extends Document {
     poster: string;
     rating: number;
     release_date: string;
+    reviewId: mongoose.Types.ObjectId[];
 }
 
 const schema = new Schema<Movie>({
@@ -47,8 +48,11 @@ const schema = new Schema<Movie>({
     },
     release_date:{
         type: String, 
-
-    }
+    },
+    reviewId: [{ 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'Review' 
+    }]
 });
 
 export default mongoose.model<Movie>('Movie', schema);
