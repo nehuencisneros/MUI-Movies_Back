@@ -1,9 +1,11 @@
 import { Router } from 'express';
-import { addUser, getUser } from '../handlers/user.handler';
+import { addUser, getUser, login } from '../handlers/user.handler';
 
 const userRouter: Router = Router()
 
-    userRouter.post("/login", addUser)
+    userRouter.post("/new", addUser)
+
+    userRouter.post("/login", login)
 
     userRouter.get("/get/:id", getUser)
 
