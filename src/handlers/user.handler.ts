@@ -3,7 +3,7 @@ import { createUser, findUser } from "../controllers/users.controller";
 import bcrypt from "bcrypt";
 import mongoose from "mongoose";
 
-export const loginUser = async (req: Request, res: Response) => {
+export const addUser = async (req: Request, res: Response) => {
     const { name, email, password } = req.body;
 
     try {
