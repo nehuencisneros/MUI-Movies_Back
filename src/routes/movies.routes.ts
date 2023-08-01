@@ -5,6 +5,6 @@ const moviesRouter: Router = Router()
 
     moviesRouter.get("/popular", getMovies)
 
-    moviesRouter.get("/movie/person", getPerson)
+    moviesRouter.get("/detail/", getPerson)
 
 export default moviesRouter;

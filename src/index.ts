@@ -7,7 +7,7 @@ const DB_CONNECTION = process.env.DB_CONNECTION;
 
 mongoose.Promise = Promise;
 
-const connectionDB= async()=>{
+const connectionDB = async() =>{
     try {
         mongoose.connect(DB_CONNECTION);
         console.log('MongoDB connected');

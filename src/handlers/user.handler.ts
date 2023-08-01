@@ -1,6 +1,7 @@
 import { Response, Request } from "express";
-import { createUser } from "../controllers/users.controller";
+import { createUser, findUser } from "../controllers/users.controller";
 import bcrypt from "bcrypt";
+import mongoose from "mongoose";
 
 export const loginUser = async (req: Request, res: Response) => {
     const { name, email, password } = req.body;
@@ -12,3 +13,18 @@ export const loginUser = async (req: Request, res: Response) => {
         res.status(400).json({ error: error.message });
     }
 }
+
+
+export const getUser = async (req: Request, res: Response) => {
+    const { id } = req.params
+    try {
+        const objId = new mongoose.Types.ObjectId(id);
+        const userFind = await findUser (objId)
+        
+        res.status(200).send(userFind)
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+
+}
+

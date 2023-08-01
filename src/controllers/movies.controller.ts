@@ -42,9 +42,11 @@ export const getAllMovies = async () => {
 }
 
 export const getAllPerson = async () => {
+
     const response = await axios.get('https://api.themoviedb.org/3/movie/popular?api_key='+ API_KEY )
 
     const  { data } = response
 
     return data;
+
 }

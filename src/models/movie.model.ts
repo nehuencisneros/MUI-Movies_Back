@@ -28,23 +28,18 @@ const schema = new Schema<Movie>({
     },
     adult:{
         type: Boolean,
-
     },
     lenguaje:{
         type: String, 
-
     },
     image:{
         type: String, 
-
     },
     poster:{
         type: String, 
-
     },
     rating:{
         type: Number,
-
     },
     release_date:{
         type: String, 

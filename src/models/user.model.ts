@@ -4,6 +4,7 @@ interface User extends Document {
     name:String;
     email: String;
     password: String;
+    reviews: mongoose.Types.ObjectId[];
 }
 
 const schema = new Schema<User>({
@@ -18,7 +19,11 @@ const schema = new Schema<User>({
     password:{
         type: String, 
         required: true 
-    }
+    },
+    reviews:[{
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'Review' 
+    }]
 });
 
 export default mongoose.model<User>('User', schema);
