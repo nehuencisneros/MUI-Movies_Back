@@ -1,19 +1,19 @@
 import 'dotenv/config';
-import { getAllMovies, getAllPerson } from '../controllers/movies.controller';
+import { getPopularController, getAllController } from '../controllers/movies.controller';
 import { Request, Response } from 'express';
 
-export const getMovies = async (req: Request, res: Response) => {
+export const getPopularMovies = async (req: Request, res: Response) => {
     try{
-        const data = await getAllMovies()
+        const data = await getPopularController()
         res.status(200).json(data)
     } catch (error) {
         res.status(400).send({ error: error.message });
     }
 }
 
-export const getPerson = async (req: Request, res: Response) => {
+export const getAllMovies = async (req: Request, res: Response) => {
     try{
-        const response = await getAllPerson()
+        const response = await getAllController()
         res
             .status(200)
             .json(response)

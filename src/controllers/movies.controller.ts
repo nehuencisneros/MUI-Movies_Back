@@ -5,7 +5,19 @@ import axios from 'axios';
 const API_KEY = process.env.API_KEY;
 const AUTHORIZATION = process.env.AUTHORIZATION;
 
-export const getAllMovies = async () => {
+type Movie = {
+    id: number;
+    title: string;
+    overview: string;
+    adult: boolean;
+    lenguaje: string;
+    image: string;
+    poster: string;
+    rating: number;
+    release_date: string;
+}
+
+export const getPopularController = async () => {
 
     for(let i = 1; i <= 10; i++){
         let options = {
@@ -41,12 +53,40 @@ export const getAllMovies = async () => {
 
 }
 
-export const getAllPerson = async () => {
+export const getAllController = async () => {
 
-    const response = await axios.get('https://api.themoviedb.org/3/movie/popular?api_key='+ API_KEY )
+    const arrayMovies: Movie[]= []
 
-    const  { data } = response
+    for(let i = 1; i <= 5; i++){
+        let options = {
+            method: 'GET',
+            url: 'https://api.themoviedb.org/3/movie/popular?page=' + i,
+            headers: {
+                accept: 'application/json',
+                Authorization: AUTHORIZATION
+            }
+        };
 
-    return data;
+        const response = await axios.request(options)
+                                .then(function (res:any){return res})
+                                .catch(function (err:any) {return (err)});
+        const {data} = response
+
+        await data?.results.map( (e:any)=> {
+            arrayMovies.push({    
+                "id" : e.id,
+                "title": e.title,
+                "overview": e.overview ? e.overview : "no overview",
+                "adult": e.adult,
+                "lenguaje": e.original_language,
+                "image": e.backdrop_path,
+                "poster": e.poster_path,
+                "rating": e.vote_average,
+                "release_date": e.release_date,
+            }) 
+        })
+    }   
+
+    return arrayMovies;
 
 }
