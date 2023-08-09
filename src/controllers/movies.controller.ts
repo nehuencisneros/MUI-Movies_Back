@@ -56,7 +56,7 @@ export const getPopularController = async () => {
 export const getAllController = async () => {
 
     const arrayMovies: Movie[]= []
-
+        
     for(let i = 1; i <= 5; i++){
         let options = {
             method: 'GET',
@@ -66,27 +66,49 @@ export const getAllController = async () => {
                 Authorization: AUTHORIZATION
             }
         };
-
+    
         const response = await axios.request(options)
                                 .then(function (res:any){return res})
                                 .catch(function (err:any) {return (err)});
-        const {data} = response
+            
+        if(response.data){
+            const { data } = response
 
-        await data?.results.map( (e:any)=> {
-            arrayMovies.push({    
-                "id" : e.id,
-                "title": e.title,
-                "overview": e.overview ? e.overview : "no overview",
-                "adult": e.adult,
-                "lenguaje": e.original_language,
-                "image": e.backdrop_path,
-                "poster": e.poster_path,
-                "rating": e.vote_average,
-                "release_date": e.release_date,
-            }) 
-        })
-    }   
+            await data?.results.map( (e:any)=> {
+                arrayMovies.push({    
+                    "id" : e.id,
+                    "title": e.title,
+                    "overview": e.overview ? e.overview : "no overview",
+                    "adult": e.adult,
+                    "lenguaje": e.original_language,
+                    "image": e.backdrop_path,
+                    "poster": e.poster_path,
+                    "rating": e.vote_average,
+                    "release_date": e.release_date,
+                }) 
+            })
+        }
+        }
 
     return arrayMovies;
+}
 
+
+export const getByIdController = async (id:number) => {
+
+    const options = {
+        method: 'GET',
+        url: 'https://api.themoviedb.org/3/movie/' + id,
+        headers: {
+            accept: 'application/json',
+            Authorization: AUTHORIZATION
+        }
+    };
+
+    const response = await axios.request(options)
+        .then(function (res:any){return res})
+        .catch(function (err:any) {return (err)});
+
+
+    return response.data
 }
