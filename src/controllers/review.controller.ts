@@ -1,6 +1,9 @@
+import 'dotenv/config';
 import Movie from "../models/movie.model";
 import Review from "../models/review.model";
-import mongoose from "mongoose";
+import axios from "axios";
+
+const AUTHORIZATION = process.env.AUTHORIZATION;
 
 export const createReview = async (id:string, review:string, valuation:number) => {
     // Obtener la película (Movie) por su ID
@@ -22,3 +25,23 @@ export const createReview = async (id:string, review:string, valuation:number) =
     const movieWithReviews = await Movie.findById(id).populate("reviewId");
     return movieWithReviews
 }
+
+export const getReviewsController = async () => {
+    
+    const options = {
+        method: 'GET',
+        url: 'https://api.themoviedb.org/3/movie/346698/reviews?language=en-US&page=1',
+        headers: {
+            accept: 'application/json',
+            Authorization: AUTHORIZATION
+        }
+    };
+
+    const response = await axios.request(options)
+        .then(function (res:any){return res})
+        .catch(function (err:any) {return (err)});
+
+    const {data} = response
+}
+
+
