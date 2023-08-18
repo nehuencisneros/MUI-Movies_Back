@@ -109,6 +109,81 @@ export const getByIdController = async (id:number) => {
         .then(function (res:any){return res})
         .catch(function (err:any) {return (err)});
 
-
     return response.data
+}
+
+
+export const getSearchController = async ( searchValue: string ) => {
+    
+    const arrayMovies: Movie[] = []
+
+    const byName = {
+        url: `https://api.themoviedb.org/3/search/person?query=${searchValue}&include_adult=false&language=en-US&page=1`,
+        method: 'GET',
+        headers: {
+            accept: 'application/json',
+            Authorization: AUTHORIZATION
+        }
+    };
+
+    const nameResponse = await axios.request(byName)
+        .then(function (res:any){return res})
+        .catch(function (err:any) {return (err)});
+
+    const nameData = nameResponse.data
+
+    await nameData.results.map((element:any) => {
+
+        element.known_for.map((movie:any)=> {
+
+            const dato:Movie = {
+                id : movie.id,
+                title: movie.title,
+                overview: movie.overview ? movie.overview : "no overview",
+                adult: movie.adult,
+                lenguaje: movie.lenguaje,
+                backdrop_path: movie.backdrop_path ?  "https://www.themoviedb.org/t/p/original" + movie.backdrop_path : "https://www.themoviedb.org/t/p/original" + movie.poster_path,
+                poster_path: movie.poster_path,
+                rating: movie.vote_average,
+                release_date: movie.release_date,
+            }
+
+        !arrayMovies.find((e) => e.id === dato.id) && dato.title && arrayMovies.push(dato) 
+
+        })
+    })
+
+    const byMovie = {
+        method: 'GET',
+        url: `https://api.themoviedb.org/3/search/movie?query=${searchValue}&include_adult=false&language=en-US&page=1`,
+        headers: {
+            accept: 'application/json',
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhMGIwYzEyYmQ2YWM0ODRlNmNmYWNhM2Q2YjUyYWQ0MCIsInN1YiI6IjY0YzI5NDZkMmYxYmUwMDBjYTI3N2EwZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.6jO__kDB0393fGoG_J1UwqwK14MxLZJOuIUDWFsORqM'
+        }
+    };
+
+    const movieResponse = await axios.request(byMovie)
+        .then(function (res:any){return res})
+        .catch(function (err:any) {return (err)});
+
+    const movieData = movieResponse.data
+
+    await movieData.results.map((movie:any)=> {
+
+        const dato:Movie = {
+            id : movie.id,
+            title: movie.title,
+            overview: movie.overview ? movie.overview : "no overview",
+            adult: movie.adult,
+            lenguaje: movie.lenguaje,
+            backdrop_path: movie.backdrop_path ?  "https://www.themoviedb.org/t/p/original" + movie.backdrop_path : "https://www.themoviedb.org/t/p/original" + movie.poster_path,
+            poster_path: movie.poster_path,
+            rating: movie.vote_average,
+            release_date: movie.release_date,
+        }
+
+        !arrayMovies.find(e => e.id === dato.id) || dato.title && arrayMovies.push(dato) 
+    })
+
+    return arrayMovies
 }
