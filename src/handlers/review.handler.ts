@@ -20,8 +20,11 @@ export const allReviews =async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
         const response = await getReviewsController(+id)
+        if (response.message) {
+            return res.status(response.response.status).json({ error: response.response.data.status_message });
+        }
         res.status(200).json(response);
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        return res.status(500).json({ error: "Internal server error" });
     }
 }
