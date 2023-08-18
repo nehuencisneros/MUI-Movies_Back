@@ -11,8 +11,8 @@ type Movie = {
     overview: string;
     adult: boolean;
     lenguaje: string;
-    image: string;
-    poster: string;
+    backdrop_path: string;
+    poster_path: string;
     rating: number;
     release_date: string;
 }
@@ -41,8 +41,8 @@ export const getPopularController = async () => {
                 overview: e.overview ? e.overview : "no overview",
                 adult: e.adult,
                 lenguaje: e.original_language,
-                image: e.backdrop_path,
-                poster: e.poster_path,
+                backdrop_path: e.backdrop_path,
+                poster_path: e.poster_path,
                 rating: e.vote_average,
                 release_date: e.release_date,
             }) 
@@ -81,8 +81,8 @@ export const getAllController = async () => {
                     "overview": e.overview ? e.overview : "no overview",
                     "adult": e.adult,
                     "lenguaje": e.original_language,
-                    "image": e.backdrop_path,
-                    "poster": e.poster_path,
+                    "backdrop_path": e.backdrop_path,
+                    "poster_path": e.poster_path,
                     "rating": e.vote_average,
                     "release_date": e.release_date,
                 }) 

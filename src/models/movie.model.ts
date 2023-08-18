@@ -6,8 +6,8 @@ interface Movie extends Document {
     overview: string;
     adult: boolean;
     lenguaje: string;
-    image: string;
-    poster: string;
+    backdrop_path: string;
+    poster_path: string;
     rating: number;
     release_date: string;
     reviewId: mongoose.Types.ObjectId[];
@@ -32,10 +32,10 @@ const schema = new Schema<Movie>({
     lenguaje:{
         type: String, 
     },
-    image:{
+    backdrop_path:{
         type: String, 
     },
-    poster:{
+    poster_path:{
         type: String, 
     },
     rating:{
