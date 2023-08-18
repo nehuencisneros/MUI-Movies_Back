@@ -158,7 +158,7 @@ export const getSearchController = async ( searchValue: string ) => {
         url: `https://api.themoviedb.org/3/search/movie?query=${searchValue}&include_adult=false&language=en-US&page=1`,
         headers: {
             accept: 'application/json',
-            Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhMGIwYzEyYmQ2YWM0ODRlNmNmYWNhM2Q2YjUyYWQ0MCIsInN1YiI6IjY0YzI5NDZkMmYxYmUwMDBjYTI3N2EwZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.6jO__kDB0393fGoG_J1UwqwK14MxLZJOuIUDWFsORqM'
+            Authorization: AUTHORIZATION
         }
     };
 
@@ -169,7 +169,6 @@ export const getSearchController = async ( searchValue: string ) => {
     const movieData = movieResponse.data
 
     await movieData.results.map((movie:any)=> {
-
         const dato:Movie = {
             id : movie.id,
             title: movie.title,
@@ -182,7 +181,7 @@ export const getSearchController = async ( searchValue: string ) => {
             release_date: movie.release_date,
         }
 
-        !arrayMovies.find(e => e.id === dato.id) || dato.title && arrayMovies.push(dato) 
+        !arrayMovies.find(e => e.id === dato.id) && dato.title && arrayMovies.push(dato) 
     })
 
     return arrayMovies
