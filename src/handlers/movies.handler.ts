@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import { getPopularController, getAllController, getByIdController } from '../controllers/movies.controller';
+import { getPopularController, getAllController, getByIdController, getSearchController } from '../controllers/movies.controller';
 import { Request, Response } from 'express';
 
 export const getPopularMovies = async (req: Request, res: Response) => {
@@ -18,8 +18,7 @@ export const getAllMovies = async (req: Request, res: Response) => {
             .status(200)
             .json(response)
     } catch (error) {
-        res
-            .status(400).send({ error: error.message });
+        res.status(400).send({ error: error.message });
     }
 }
 
@@ -32,7 +31,19 @@ export const getMovieById =async (req: Request, res: Response) => {
             .status(200)
             .json(response)
     } catch (error) {
+        res.status(400).send({ error: error.message });
+    }
+}
+
+export const getMovieSearch = async (req: Request, res: Response) => {
+    const { searchValue } = req.params
+
+    try {
+        const response = await getSearchController(searchValue)
         res
-            .status(400).send({ error: error.message });
+            .status(200)
+            .json(response)
+    } catch (error) {
+        res.status(400).send({ error: error.message})
     }
 }
