@@ -6,9 +6,8 @@ export const newReview = async (req: Request, res: Response) => {
     const { reviewText, rating } = req.body;
 
     try {
-        console.log(`el id es ${id}, el rating es ${rating} y la review es ${reviewText}`)
-        // const results = await createReview(id, review, valuation)
-        // res.status(200).json(results);
+        const results = await createReview(+id, reviewText, rating)
+        res.status(200).json(results);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
