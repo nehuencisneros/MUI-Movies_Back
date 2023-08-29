@@ -3,11 +3,12 @@ import { createReview, getReviewsController } from "../controllers/review.contro
 
 export const newReview = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const { review, valuation } = req.body;
+    const { reviewText, rating } = req.body;
 
     try {
-        const results = await createReview(id, review, valuation)
-        res.status(200).json(results);
+        console.log(`el id es ${id}, el rating es ${rating} y la review es ${reviewText}`)
+        // const results = await createReview(id, review, valuation)
+        // res.status(200).json(results);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
