@@ -6,7 +6,7 @@ import 'dotenv/config';
 
 const SECRET_KEY = process.env.SECRET_KEY
 
-export const createUser = async (name:string, email: string, password:string) => {
+export const newUserController = async (name:string, email: string, password:string) => {
 
     const hashedPassword:string = await bcrypt.hash(password, 10)
 

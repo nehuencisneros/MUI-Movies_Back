@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import { addUser, getUser, login } from '../handlers/user.handler';
+import { newUser, getUser, login } from '../handlers/user.handler';
 
 const userRouter: Router = Router()
 
-    userRouter.post("/new", addUser)
+    userRouter.post("/new", newUser)
 
     userRouter.post("/login", login)
 

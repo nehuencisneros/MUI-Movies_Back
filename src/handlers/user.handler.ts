@@ -1,12 +1,12 @@
 import { Response, Request } from "express";
-import { createUser, findUser, loginUser } from "../controllers/users.controller";
+import { newUserController, findUser, loginUser } from "../controllers/users.controller";
 import mongoose from "mongoose";
 
-export const addUser = async (req: Request, res: Response) => {
+export const newUser = async (req: Request, res: Response) => {
     const { name, email, password } = req.body;
 
     try {
-        const response = await createUser(name, email, password)
+        const response = await newUserController(name, email, password)
         res.status(200).json(response)
     } catch (error) {
         res.status(400).json({ error: error.message });
